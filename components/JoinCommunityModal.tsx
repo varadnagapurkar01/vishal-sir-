@@ -38,7 +38,7 @@ export const JoinCommunityModal: React.FC = () => {
               </h3>
 
               <p className="text-sm text-gray-300 font-serif leading-relaxed">
-                If you’d like to join this wall of gratitude and send your personal video thank-you note to Sir, you are warmly invited to share your video message with us.
+                If you’d like to join this wall of gratitude and send your personal video thank-you note to Sir, you are warmly invited to share your video message with us with Your Name.
               </p>
             </div>
 
