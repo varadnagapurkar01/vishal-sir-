@@ -36,7 +36,7 @@ export const IntroVideoOverlay: React.FC<IntroVideoOverlayProps> = ({ onComplete
 
     setTimeout(() => {
       onComplete();
-    }, 7000);
+    }, 7500);
   };
 
   const handleGoldenButtonClick = () => {
@@ -116,32 +116,48 @@ export const IntroVideoOverlay: React.FC<IntroVideoOverlayProps> = ({ onComplete
 
           </div>
         ) : (
+          /* CINEMATIC FULL-SCREEN LORD MAHADEVA BACKGROUND ASPECT (IMAGE NEVER DISTURBED) */
           <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
-            transition={{ duration: 0.8 }}
-            className="flex flex-col items-center justify-center text-center p-6 space-y-6 max-w-3xl relative z-10"
+            transition={{ duration: 1 }}
+            className="relative w-full h-full flex flex-col justify-between p-6 overflow-hidden bg-black"
           >
-            {/* User Supplied Image (/photos/image.png) Without Circle Frame */}
-            <motion.div
-              initial={{ scale: 0.6, opacity: 0 }}
-              animate={{ scale: 1, opacity: 1 }}
-              transition={{ delay: 0.2, duration: 0.6 }}
-              className="relative w-36 sm:w-48 h-auto max-h-48 rounded-2xl overflow-hidden flex items-center justify-center"
+            {/* Full-Screen Lord Mahadeva Image Background Layer */}
+            <motion.div 
+              initial={{ scale: 1.05, opacity: 0 }}
+              animate={{ scale: 1, opacity: 0.85 }}
+              transition={{ duration: 1.2 }}
+              className="absolute inset-0 z-0 flex items-center justify-center"
             >
               <img
                 src="/photos/image.png"
-                alt="Vishal Sir Special Photo"
-                className="w-full h-full object-contain drop-shadow-[0_0_35px_rgba(255,215,0,0.8)]"
+                alt="Lord Mahadeva Background"
+                className="w-full h-full object-contain pointer-events-none drop-shadow-[0_0_50px_rgba(255,215,0,0.4)]"
               />
+              {/* Subtle Gradient Backdrop to Ensure Text Readability without Obscuring Lord Mahadeva */}
+              <div className="absolute inset-0 bg-gradient-to-t from-black/95 via-transparent to-black/80 pointer-events-none" />
             </motion.div>
 
-            <div className="space-y-4">
+            {/* Top Text Anchor */}
+            <div className="relative z-10 text-center pt-4">
+              <motion.span
+                initial={{ opacity: 0, y: -20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.5 }}
+                className="inline-block px-4 py-1.5 rounded-full bg-amber-400/20 border border-amber-400/50 text-amber-300 text-xs font-black uppercase tracking-widest backdrop-blur-md"
+              >
+                DIVINE BLESSINGS
+              </motion.span>
+            </div>
+
+            {/* Bottom Floating Birthday Text & Batch Attribution (Positioned Below Image Subject) */}
+            <div className="relative z-10 text-center space-y-3 pb-6">
               <motion.h1
-                initial={{ opacity: 0, scale: 0.7 }}
-                animate={{ opacity: 1, scale: 1 }}
+                initial={{ opacity: 0, y: 30 }}
+                animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.8, duration: 0.8 }}
-                className="text-4xl sm:text-7xl font-black text-transparent bg-clip-text bg-gradient-to-r from-amber-300 via-yellow-400 to-orange-500 uppercase tracking-tight leading-tight drop-shadow-2xl"
+                className="text-4xl sm:text-7xl font-black text-transparent bg-clip-text bg-gradient-to-r from-amber-300 via-yellow-400 to-orange-500 uppercase tracking-tight leading-tight drop-shadow-[0_4px_20px_rgba(0,0,0,0.9)]"
               >
                 HAPPY BIRTHDAY <br /> VISHAL SIR!
               </motion.h1>
@@ -150,20 +166,20 @@ export const IntroVideoOverlay: React.FC<IntroVideoOverlayProps> = ({ onComplete
                 initial={{ opacity: 0, y: 15 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 1.4 }}
-                className="text-sm sm:text-base text-amber-100/90 font-serif italic max-w-lg mx-auto"
+                className="text-sm sm:text-base text-amber-100 font-serif italic max-w-lg mx-auto drop-shadow-md"
               >
                 May Lord Shiva bless you with immense strength, good health, and infinite success.
               </motion.p>
-            </div>
 
-            <motion.p
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ delay: 2.0 }}
-              className="text-xs sm:text-sm text-cyan-300 font-bold uppercase tracking-widest pt-2"
-            >
-              A Gift From The 6:45 AM - 7:45 AM Batch
-            </motion.p>
+              <motion.p
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                transition={{ delay: 2.0 }}
+                className="text-xs sm:text-sm text-cyan-300 font-bold uppercase tracking-widest pt-1"
+              >
+                A Gift From The 6:45 AM - 7:45 AM Batch
+              </motion.p>
+            </div>
           </motion.div>
         )}
       </motion.div>
