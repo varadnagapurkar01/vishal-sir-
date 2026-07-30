@@ -1,9 +1,9 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import confetti from 'canvas-confetti';
-import { Play } from 'lucide-react';
+import { Play, Volume2, VolumeX } from 'lucide-react';
 
 interface IntroVideoOverlayProps {
   onComplete: () => void;
@@ -12,6 +12,8 @@ interface IntroVideoOverlayProps {
 export const IntroVideoOverlay: React.FC<IntroVideoOverlayProps> = ({ onComplete }) => {
   const [videoEnded, setVideoEnded] = useState(false);
   const [isPlaying, setIsPlaying] = useState(false);
+  const [isMuted, setIsMuted] = useState(false);
+  const videoRef = useRef<HTMLVideoElement>(null);
 
   const triggerGoalCelebration = () => {
     setVideoEnded(true);
@@ -28,42 +30,82 @@ export const IntroVideoOverlay: React.FC<IntroVideoOverlayProps> = ({ onComplete
     }, 6000);
   };
 
+  const handleGoldenButtonClick = () => {
+    if (videoRef.current) {
+      videoRef.current.muted = false;
+      videoRef.current.currentTime = 0;
+      
+      videoRef.current.play().then(() => {
+        setIsPlaying(true);
+        setIsMuted(false);
+      }).catch((err) => {
+        console.error("Play error, trying muted play:", err);
+        if (videoRef.current) {
+          videoRef.current.muted = true;
+          setIsMuted(true);
+          videoRef.current.play().then(() => setIsPlaying(true)).catch(triggerGoalCelebration);
+        }
+      });
+    }
+  };
+
+  const toggleMute = () => {
+    if (videoRef.current) {
+      const nextMute = !isMuted;
+      videoRef.current.muted = nextMute;
+      setIsMuted(nextMute);
+    }
+  };
+
   return (
     <AnimatePresence>
       <motion.div
         initial={{ opacity: 1 }}
         exit={{ opacity: 0 }}
         transition={{ duration: 1 }}
-        className="fixed inset-0 z-50 flex items-center justify-center bg-black overflow-hidden"
+        className="fixed inset-0 z-50 flex items-center justify-center bg-black overflow-hidden pointer-events-auto"
       >
         {!videoEnded ? (
           <div className="relative w-full h-full flex flex-col items-center justify-center bg-black">
             
-            {/* NATIVE HTML5 UNMUTED CONTROLS - ZERO REACT INTERFERENCE TO PREVENT STUTTER */}
-            {isPlaying ? (
-              <video
-                src="/last_goal.mp4"
-                autoPlay
-                controls
-                playsInline
-                preload="auto"
-                onEnded={triggerGoalCelebration}
-                onError={triggerGoalCelebration}
-                className="w-full h-full object-contain max-h-screen mx-auto"
-              />
-            ) : (
-              /* PURE BLACK COVER WITH GOLDEN PLAY BUTTON BEFORE USER CLICK */
+            {/* CLEAN VIDEO ELEMENT WITHOUT NATIVE CONTROLS BAR (controls=false) */}
+            <video
+              ref={videoRef}
+              src="/last_goal.mp4"
+              playsInline
+              preload="auto"
+              onEnded={triggerGoalCelebration}
+              onError={triggerGoalCelebration}
+              className="w-full h-full object-contain max-h-screen mx-auto pointer-events-none"
+            />
+
+            {/* BLACK SCREEN COVER WITH ONLY GOLDEN BUTTON BEFORE PLAYING */}
+            {!isPlaying && (
               <div className="absolute inset-0 bg-black flex flex-col items-center justify-center z-40 p-4 text-center">
                 <motion.button 
                   whileHover={{ scale: 1.08 }}
                   whileTap={{ scale: 0.94 }}
-                  onClick={() => setIsPlaying(true)}
+                  onClick={handleGoldenButtonClick}
                   className="px-8 py-5 rounded-full bg-gradient-to-r from-amber-400 via-yellow-300 to-amber-500 text-black font-black text-lg uppercase tracking-wider shadow-[0_0_60px_rgba(255,215,0,0.8)] flex items-center gap-3 border-2 border-amber-200 cursor-pointer"
                 >
                   <Play className="w-7 h-7 fill-black" />
                   <span>PLAY INTRO</span>
                 </motion.button>
               </div>
+            )}
+
+            {/* FLOATING MUTE / UNMUTE BUTTON ONLY (NO PLAY/PAUSE/STOP/SEEK CONTROLS) */}
+            {isPlaying && (
+              <button
+                onClick={toggleMute}
+                className="absolute top-6 right-6 p-3 rounded-full bg-black/70 border border-amber-400/50 text-amber-300 z-50 shadow-2xl hover:bg-black/90 transition-all cursor-pointer"
+              >
+                {isMuted ? (
+                  <VolumeX className="w-6 h-6 text-gray-400" />
+                ) : (
+                  <Volume2 className="w-6 h-6 text-amber-400" />
+                )}
+              </button>
             )}
 
           </div>
