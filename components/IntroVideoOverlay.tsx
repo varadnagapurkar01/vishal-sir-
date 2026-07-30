@@ -116,48 +116,48 @@ export const IntroVideoOverlay: React.FC<IntroVideoOverlayProps> = ({ onComplete
 
           </div>
         ) : (
-          /* CINEMATIC FULL-SCREEN LORD MAHADEVA BACKGROUND ASPECT (IMAGE NEVER DISTURBED) */
+          /* CINEMATIC RESPONSIVE LORD MAHADEVA BIRTHDAY CELEBRATION OVERLAY */
           <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ duration: 1 }}
-            className="relative w-full h-full flex flex-col justify-between p-6 overflow-hidden bg-black"
+            className="relative w-full h-full flex flex-col justify-between p-4 sm:p-8 overflow-y-auto bg-black"
           >
-            {/* Full-Screen Lord Mahadeva Image Background Layer */}
+            {/* Seamless Black Background with Mahadeva Image */}
             <motion.div 
               initial={{ scale: 1.05, opacity: 0 }}
-              animate={{ scale: 1, opacity: 0.85 }}
+              animate={{ scale: 1, opacity: 0.9 }}
               transition={{ duration: 1.2 }}
-              className="absolute inset-0 z-0 flex items-center justify-center"
+              className="absolute inset-0 z-0 flex items-center justify-center bg-black"
             >
               <img
                 src="/photos/image.png"
                 alt="Lord Mahadeva Background"
-                className="w-full h-full object-contain pointer-events-none drop-shadow-[0_0_50px_rgba(255,215,0,0.4)]"
+                className="w-full h-full object-contain sm:object-cover md:object-contain pointer-events-none drop-shadow-[0_0_60px_rgba(255,215,0,0.3)] mix-blend-lighten"
               />
-              {/* Subtle Gradient Backdrop to Ensure Text Readability without Obscuring Lord Mahadeva */}
-              <div className="absolute inset-0 bg-gradient-to-t from-black/95 via-transparent to-black/80 pointer-events-none" />
+              {/* Responsive Gradient Vignette matching pure black background */}
+              <div className="absolute inset-0 bg-gradient-to-t from-black via-black/30 to-black/80 pointer-events-none" />
             </motion.div>
 
             {/* Top Text Anchor */}
-            <div className="relative z-10 text-center pt-4">
+            <div className="relative z-10 text-center pt-2 sm:pt-4">
               <motion.span
                 initial={{ opacity: 0, y: -20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.5 }}
-                className="inline-block px-4 py-1.5 rounded-full bg-amber-400/20 border border-amber-400/50 text-amber-300 text-xs font-black uppercase tracking-widest backdrop-blur-md"
+                className="inline-block px-3.5 py-1 sm:px-4 sm:py-1.5 rounded-full bg-amber-400/20 border border-amber-400/50 text-amber-300 text-[10px] sm:text-xs font-black uppercase tracking-widest backdrop-blur-md"
               >
                 DIVINE BLESSINGS
               </motion.span>
             </div>
 
-            {/* Bottom Floating Birthday Text & Batch Attribution (Positioned Below Image Subject) */}
-            <div className="relative z-10 text-center space-y-3 pb-6">
+            {/* Responsive Floating Birthday Text & Batch Attribution */}
+            <div className="relative z-10 text-center space-y-2 sm:space-y-4 pb-4 sm:pb-8 my-auto sm:my-0">
               <motion.h1
                 initial={{ opacity: 0, y: 30 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.8, duration: 0.8 }}
-                className="text-4xl sm:text-7xl font-black text-transparent bg-clip-text bg-gradient-to-r from-amber-300 via-yellow-400 to-orange-500 uppercase tracking-tight leading-tight drop-shadow-[0_4px_20px_rgba(0,0,0,0.9)]"
+                className="text-3xl sm:text-6xl md:text-7xl font-black text-transparent bg-clip-text bg-gradient-to-r from-amber-300 via-yellow-400 to-orange-500 uppercase tracking-tight leading-tight drop-shadow-[0_4px_25px_rgba(0,0,0,0.95)]"
               >
                 HAPPY BIRTHDAY <br /> VISHAL SIR!
               </motion.h1>
@@ -166,7 +166,7 @@ export const IntroVideoOverlay: React.FC<IntroVideoOverlayProps> = ({ onComplete
                 initial={{ opacity: 0, y: 15 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 1.4 }}
-                className="text-sm sm:text-base text-amber-100 font-serif italic max-w-lg mx-auto drop-shadow-md"
+                className="text-xs sm:text-base text-amber-100/90 font-serif italic max-w-xs sm:max-w-lg mx-auto drop-shadow-md px-2"
               >
                 May Lord Shiva bless you with immense strength, good health, and infinite success.
               </motion.p>
@@ -175,7 +175,7 @@ export const IntroVideoOverlay: React.FC<IntroVideoOverlayProps> = ({ onComplete
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
                 transition={{ delay: 2.0 }}
-                className="text-xs sm:text-sm text-cyan-300 font-bold uppercase tracking-widest pt-1"
+                className="text-[11px] sm:text-sm text-cyan-300 font-bold uppercase tracking-widest pt-1"
               >
                 A Gift From The 6:45 AM - 7:45 AM Batch
               </motion.p>

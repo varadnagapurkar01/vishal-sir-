@@ -6,6 +6,7 @@ import { VideoTree } from '@/components/VideoTree';
 import { MediaPlayerModal } from '@/components/MediaPlayerModal';
 import { IntroVideoOverlay } from '@/components/IntroVideoOverlay';
 import { BasketballTransition } from '@/components/BasketballTransition';
+import { JoinCommunityModal } from '@/components/JoinCommunityModal';
 import { MediaItem } from '@/app/api/media/route';
 import { motion } from 'framer-motion';
 
@@ -76,25 +77,6 @@ export default function Home() {
           />
         </section>
 
-        {/* Section B: Integrated Photo Memory Card (Using supplied image public/photos/og_photo.jpeg) */}
-        <section className="w-full max-w-3xl mx-auto">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.6 }}
-            className="relative rounded-3xl overflow-hidden border border-amber-500/30 shadow-2xl bg-[#071026] p-2"
-          >
-            <div className="relative w-full rounded-2xl overflow-hidden bg-black flex items-center justify-center max-h-[500px]">
-              <img
-                src="/photos/og_photo.jpeg"
-                alt="Vishal Sir Memory Photo"
-                className="w-full h-full object-contain mx-auto"
-              />
-            </div>
-          </motion.div>
-        </section>
-
         {/* Section C: Mahadeva Devotional Blessing */}
         <section id="blessing" className="scroll-mt-24 relative bg-gradient-to-b from-[#08122C] to-[#040814] rounded-3xl p-8 border border-amber-500/40 shadow-2xl text-center overflow-hidden">
           <div className="relative z-10 max-w-xl mx-auto space-y-3">
@@ -107,6 +89,9 @@ export default function Home() {
             </p>
           </div>
         </section>
+
+        {/* Section D: Humble Invitation for Other Batches / Students (Positioned below Har Har Mahadev) */}
+        <JoinCommunityModal />
 
       </main>
 
