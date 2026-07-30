@@ -14,7 +14,7 @@ export interface MediaItem {
 
 export async function GET() {
   try {
-    const publicDir = path.join(process.cwd(), 'process.cwd()' in process ? process.cwd() : '', 'public');
+    const publicDir = path.join(process.cwd(), 'public');
     const videosDir = path.join(publicDir, 'videos');
 
     const mediaList: MediaItem[] = [];
@@ -25,7 +25,7 @@ export async function GET() {
       rootFiles.forEach((file) => {
         const lower = file.toLowerCase();
         if (
-          (lower === 'priority-1.mp4' || lower === 'priority-2.mp4' || lower === 'priority1.mp4' || lower === 'priority2.mp4')
+          lower === 'priority-1.mp4' || lower === 'priority-2.mp4' || lower === 'priority1.mp4' || lower === 'priority2.mp4'
         ) {
           const isPriority1 = lower.includes('1');
           mediaList.push({
@@ -41,7 +41,7 @@ export async function GET() {
       });
     }
 
-    // Scan public/videos — EXCLUDE intro videos like last goal.mp4 / lastgoal.mp4
+    // Scan public/videos — EXCLUDE intro videos like last goal.mp4 / last_goal.mp4
     if (fs.existsSync(videosDir)) {
       const videoFiles = fs.readdirSync(videosDir);
       videoFiles.forEach((file) => {
@@ -50,7 +50,8 @@ export async function GET() {
         if (
           ['.mp4', '.webm', '.ogg', '.mov', '.m4v'].includes(ext) &&
           !lower.includes('last goal') &&
-          !lower.includes('lastgoal')
+          !lower.includes('lastgoal') &&
+          !lower.includes('last_goal')
         ) {
           const isPriority = lower.includes('priority');
           mediaList.push({
