@@ -101,84 +101,106 @@ export const IntroVideoOverlay: React.FC<IntroVideoOverlayProps> = ({ onComplete
               </div>
             )}
 
-            {isPlaying && (
+            {/* Top Right Controls: Mute & Skip Intro */}
+            <div className="absolute top-6 right-6 z-50 flex items-center gap-3">
+              {isPlaying && (
+                <button
+                  onClick={toggleMute}
+                  className="p-3 rounded-full bg-black/70 border border-amber-400/50 text-amber-300 shadow-2xl hover:bg-black/90 transition-all cursor-pointer flex items-center gap-2 text-xs font-bold"
+                >
+                  {isMuted ? (
+                    <VolumeX className="w-5 h-5 text-gray-400" />
+                  ) : (
+                    <Volume2 className="w-5 h-5 text-amber-400" />
+                  )}
+                </button>
+              )}
+
               <button
-                onClick={toggleMute}
-                className="absolute top-6 right-6 p-3 rounded-full bg-black/70 border border-amber-400/50 text-amber-300 z-50 shadow-2xl hover:bg-black/90 transition-all cursor-pointer"
+                onClick={onComplete}
+                className="px-4 py-2 rounded-full bg-black/70 border border-amber-400/40 text-amber-300 text-xs font-bold uppercase tracking-wider hover:bg-amber-400 hover:text-black transition-all cursor-pointer shadow-lg backdrop-blur-md"
               >
-                {isMuted ? (
-                  <VolumeX className="w-6 h-6 text-gray-400" />
-                ) : (
-                  <Volume2 className="w-6 h-6 text-amber-400" />
-                )}
+                Skip Intro →
               </button>
-            )}
+            </div>
 
           </div>
         ) : (
-          /* CINEMATIC RESPONSIVE LORD MAHADEVA BIRTHDAY CELEBRATION OVERLAY */
+          /* CINEMATIC LORD MAHADEVA BIRTHDAY OVERLAY - TEXT AT BOTTOM, MAHADEVA FACE CLEAN ON TOP */
           <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ duration: 1 }}
-            className="relative w-full h-full flex flex-col justify-between p-4 sm:p-8 overflow-y-auto bg-black"
+            className="relative w-full h-full flex flex-col justify-between overflow-hidden bg-black"
           >
-            {/* Seamless Black Background with Mahadeva Image */}
+            {/* Lord Mahadeva Image - Positioned in top/middle screen so face is completely clear */}
             <motion.div 
               initial={{ scale: 1.05, opacity: 0 }}
-              animate={{ scale: 1, opacity: 0.9 }}
+              animate={{ scale: 1, opacity: 1 }}
               transition={{ duration: 1.2 }}
-              className="absolute inset-0 z-0 flex items-center justify-center bg-black"
+              className="absolute inset-0 z-0 flex items-start sm:items-center justify-center pt-8 pb-48 sm:pb-64 pointer-events-none"
             >
               <img
                 src="/photos/image.png"
-                alt="Lord Mahadeva Background"
-                className="w-full h-full object-contain sm:object-cover md:object-contain pointer-events-none drop-shadow-[0_0_60px_rgba(255,215,0,0.3)] mix-blend-lighten"
+                alt="Lord Mahadeva"
+                className="max-h-[52vh] sm:max-h-[60vh] w-auto object-contain drop-shadow-[0_0_60px_rgba(255,215,0,0.4)]"
               />
-              {/* Responsive Gradient Vignette matching pure black background */}
-              <div className="absolute inset-0 bg-gradient-to-t from-black via-black/30 to-black/80 pointer-events-none" />
             </motion.div>
 
-            {/* Top Text Anchor */}
-            <div className="relative z-10 text-center pt-2 sm:pt-4">
+            {/* Top Anchor: Har Har Mahadev Tag */}
+            <div className="relative z-10 text-center pt-4 sm:pt-6">
               <motion.span
                 initial={{ opacity: 0, y: -20 }}
                 animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.5 }}
-                className="inline-block px-3.5 py-1 sm:px-4 sm:py-1.5 rounded-full bg-amber-400/20 border border-amber-400/50 text-amber-300 text-[10px] sm:text-xs font-black uppercase tracking-widest backdrop-blur-md"
+                transition={{ delay: 0.4 }}
+                className="inline-block px-4 py-1 rounded-full bg-amber-500/20 border border-amber-400/50 text-amber-300 text-xs font-black uppercase tracking-widest backdrop-blur-md shadow-lg"
               >
-                DIVINE BLESSINGS
+                HAR HAR MAHADEV
               </motion.span>
             </div>
 
-            {/* Responsive Floating Birthday Text & Batch Attribution */}
-            <div className="relative z-10 text-center space-y-2 sm:space-y-4 pb-4 sm:pb-8 my-auto sm:my-0">
+            {/* Bottom Anchor: Birthday Wishes Container (Positioned safely below Mahadeva's face) */}
+            <div className="relative z-10 w-full bg-gradient-to-t from-black via-black/95 to-transparent pt-12 pb-6 px-4 sm:px-8 text-center space-y-3 sm:space-y-4 mt-auto">
               <motion.h1
-                initial={{ opacity: 0, y: 30 }}
+                initial={{ opacity: 0, y: 25 }}
                 animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.8, duration: 0.8 }}
-                className="text-3xl sm:text-6xl md:text-7xl font-black text-transparent bg-clip-text bg-gradient-to-r from-amber-300 via-yellow-400 to-orange-500 uppercase tracking-tight leading-tight drop-shadow-[0_4px_25px_rgba(0,0,0,0.95)]"
+                transition={{ delay: 0.7, duration: 0.7 }}
+                className="text-3xl sm:text-5xl md:text-6xl font-black text-transparent bg-clip-text bg-gradient-to-r from-amber-300 via-yellow-400 to-amber-500 uppercase tracking-tight leading-tight drop-shadow-[0_4px_20px_rgba(0,0,0,0.9)]"
               >
-                HAPPY BIRTHDAY <br /> VISHAL SIR!
+                HAPPY BIRTHDAY <br className="sm:hidden" /> VISHAL SIR!
               </motion.h1>
 
               <motion.p
                 initial={{ opacity: 0, y: 15 }}
                 animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 1.4 }}
-                className="text-xs sm:text-base text-amber-100/90 font-serif italic max-w-xs sm:max-w-lg mx-auto drop-shadow-md px-2"
+                transition={{ delay: 1.0 }}
+                className="text-xs sm:text-base text-amber-100/90 font-serif italic max-w-md sm:max-w-xl mx-auto drop-shadow-md px-2 leading-relaxed"
               >
-                May Lord Shiva bless you with immense strength, good health, and infinite success.
+                “May Lord Shiva bless you with immense strength, good health, and infinite success.”
               </motion.p>
 
               <motion.p
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
-                transition={{ delay: 2.0 }}
-                className="text-[11px] sm:text-sm text-cyan-300 font-bold uppercase tracking-widest pt-1"
+                transition={{ delay: 1.3 }}
+                className="text-[11px] sm:text-xs text-cyan-300 font-bold uppercase tracking-widest"
               >
                 A Gift From The 6:45 AM - 7:45 AM Batch
               </motion.p>
+
+              <motion.div
+                initial={{ opacity: 0, y: 15 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 1.6 }}
+                className="pt-2 sm:pt-4"
+              >
+                <button
+                  onClick={onComplete}
+                  className="px-8 py-3 rounded-full bg-gradient-to-r from-amber-400 via-yellow-300 to-amber-500 text-black font-black text-xs sm:text-sm uppercase tracking-widest shadow-[0_0_30px_rgba(255,215,0,0.6)] hover:scale-105 transition-all cursor-pointer"
+                >
+                  ENTER CELEBRATION →
+                </button>
+              </motion.div>
             </div>
           </motion.div>
         )}
